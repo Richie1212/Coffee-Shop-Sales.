@@ -1,0 +1,281 @@
+-- Creating database
+CREATE DATABASE coffee_shop_sales;
+
+SELECT * FROM coffee_sales;
+
+-- Create a duplicate table( incase you make a mistake so you can have access to your original copy)
+CREATE TABLE coffee_sales_copy
+LIKE coffee_sales;
+
+INSERT coffee_sales_copy
+SELECT * FROM coffee_sales;
+
+SELECT * FROM coffee_sales_copy;
+
+
+-- DATA CLEANING//
+
+-- Convert DATE (transaction_date) Column To Proper Date Format
+UPDATE coffee_sales_copy
+SET transaction_date = DATE_FORMAT(STR_TO_DATE(transaction_date, '%m/%d/%Y'), '%Y-%m-%d');
+
+ALTER TABLE coffee_sales_copy
+MODIFY COLUMN transaction_date DATE;
+
+-- Convert TIME (transaction_time)  Column TO Proper Date Format
+UPDATE coffee_sales_copy
+SET transaction_time = STR_TO_DATE(transaction_time, '%k:%i:%s')
+;
+
+ALTER TABLE coffee_sales_copy
+MODIFY COLUMN transaction_time TIME
+;
+
+-- CHANGE COLUMN NAME `ï»¿transaction_id` to transaction_id
+ALTER TABLE coffee_sales_copy
+CHANGE COLUMN ï»¿transaction_id transanction_id INT
+;
+
+
+
+-- Exploratory Data Analysis(EDA)//
+
+SELECT * FROM coffee_sales_copy;
+
+-- 1. Total Sales Analysis
+
+-- Total sales for each month
+SELECT ROUND(SUM(unit_price * transaction_qty)) as Total_Sales 
+FROM coffee_sales_copy 
+WHERE MONTH(transaction_date) =  1 -- for month of January
+;
+
+
+-- Month on Month increase or decrease in sales
+SELECT 
+    MONTH(transaction_date) AS month,
+    ROUND(SUM(unit_price * transaction_qty)) AS total_sales,
+    (SUM(unit_price * transaction_qty) - LAG(SUM(unit_price * transaction_qty), 1)
+    OVER (ORDER BY MONTH(transaction_date))) / LAG(SUM(unit_price * transaction_qty), 1) 
+    OVER (ORDER BY MONTH(transaction_date)) * 100 AS mom_increase_percentage
+FROM 
+    coffee_sales_copy
+WHERE 
+    MONTH(transaction_date) IN (1, 2, 3, 4, 5, 6) -- for the months 
+GROUP BY 
+    MONTH(transaction_date)
+ORDER BY 
+    MONTH(transaction_date)
+;
+
+
+-- 2. Total Orders Analysis
+
+-- Total Orders for the months
+SELECT 
+COUNT(transanction_id) AS Total_Orders 
+FROM coffee_sales_copy 
+WHERE MONTH(transaction_date) =  1 -- for month of January
+;
+
+-- Month on Month increase or decrease on orders
+SELECT 
+    MONTH(transaction_date) AS month,
+    ROUND(COUNT(transanction_id)) AS total_orders,
+    (COUNT(transanction_id) - LAG(COUNT(transanction_id), 1) 
+    OVER (ORDER BY MONTH(transaction_date))) / LAG(COUNT(transanction_id), 1) 
+    OVER (ORDER BY MONTH(transaction_date)) * 100 AS mom_increase_percentage
+FROM 
+    coffee_sales_copy
+WHERE 
+    MONTH(transaction_date) IN (1, 2, 3, 4, 5, 6) -- for the months
+GROUP BY 
+    MONTH(transaction_date)
+ORDER BY 
+    MONTH(transaction_date)
+;
+
+
+-- 3. Total Quantity Sold Analysis
+
+-- Total Quantity Sold for each month
+SELECT
+DATE_FORMAT(transaction_date, '%Y-%m') AS month, SUM(transaction_qty) as Total_Quantity_Sold
+FROM coffee_sales_copy 
+WHERE MONTH(transaction_date) IN (1, 2, 3, 4, 5, 6) -- for the months
+GROUP BY MONTH
+ORDER BY MONTH
+;
+
+
+-- Total Quantity Sold KPI - MOM diference and MOM Growth
+SELECT 
+    MONTH(transaction_date) AS month,
+    ROUND(SUM(transaction_qty)) AS total_quantity_sold,
+    (SUM(transaction_qty) - LAG(SUM(transaction_qty), 1) 
+    OVER (ORDER BY MONTH(transaction_date))) / LAG(SUM(transaction_qty), 1) 
+    OVER (ORDER BY MONTH(transaction_date)) * 100 AS mom_increase_percentage
+FROM 
+    coffee_sales_copy
+WHERE 
+    MONTH(transaction_date) IN (1, 2, 3, 4, 5, 6)   -- for months
+GROUP BY 
+    MONTH(transaction_date)
+ORDER BY 
+    MONTH(transaction_date)
+;
+
+
+-- 4. CALENDAR TABLE – Daily Sales, Quantity and Total Orders
+
+SELECT 
+	CONCAT(ROUND(SUM(unit_price * transaction_qty)/1000,1), 'K') AS Total_Sales,
+    CONCAT(ROUND(SUM(transaction_qty)/1000,1), 'K') AS Total_Qty_Sold,
+	CONCAT(ROUND(COUNT(transanction_id)/1000,1), 'K') AS Total_Orders
+FROM coffee_sales_copy
+WHERE transaction_date = '2023-05-18'
+;
+
+-- 5. Weekend and Weekdays Sales
+
+SELECT 
+    CASE 
+        WHEN DAYOFWEEK(transaction_date) IN (1, 7) THEN 'Weekends'
+        ELSE 'Weekdays'
+    END AS day_type,
+   CONCAT(ROUND(SUM(unit_price * transaction_qty)/1000,1), 'K') AS total_sales
+FROM coffee_sales_copy
+WHERE MONTH(transaction_date) = 1  -- For the month January
+GROUP BY 
+    CASE 
+        WHEN DAYOFWEEK(transaction_date) IN (1, 7) THEN 'Weekends'
+        ELSE 'Weekdays'
+    END;
+    
+    
+SELECT * FROM coffee_sales_copy;
+
+-- 6. Sales Analysis by Store Location
+SELECT  store_location, 
+		CONCAT(ROUND(SUM(unit_price * transaction_qty)/1000,2), 'K') AS Total_Sales
+FROM coffee_sales_copy
+WHERE MONTH(transaction_date) = 1 -- For month January
+GROUP BY store_location
+ORDER BY SUM(unit_price * transaction_qty) DESC
+;
+
+
+-- 7. Daily Sales Analysis
+-- Finding the average sales for the month
+SELECT CONCAT(ROUND(AVG(total_sales)/1000, 1), 'K') AS Average_sales
+FROM (
+	  SELECT SUM(unit_price * transaction_qty) AS Total_sales
+      FROM coffee_sales_copy
+      WHERE MONTH(transaction_date) = 1 -- for the month January
+     GROUP BY transaction_date
+     ORDER BY transaction_date
+      ) AS Inner_query
+;
+
+-- Finding daily sales for the month
+SELECT 
+	DAY(transaction_date) AS day_of_month,
+	ROUND(SUM(unit_price * transaction_qty), 1) AS total_sales
+FROM coffee_sales_copy
+WHERE MONTH(transaction_date) = 1 -- for the month January
+GROUP BY DAY(transaction_date)
+ORDER BY DAY(transaction_date)
+;
+
+-- Comparing daily sales and average sales; whether above, below or equal to daily sales
+SELECT day_of_month,
+	CASE
+    WHEN total_sales > average_sales THEN  'Above_average'
+    WHEN total_sales < average_sales THEN 'Below_average'
+    ELSE 'Equal_to_Average'
+    END AS Sales_status, total_sales
+FROM(
+	SELECT
+		DAY(transaction_date) AS day_of_month,
+        ROUND(SUM(unit_price * transaction_qty),1) AS total_sales,
+        AVG(SUM(unit_price * transaction_qty)) OVER() AS average_sales
+FROM coffee_sales_copy
+WHERE MONTH(transaction_date) = 1 -- For the month January
+GROUP BY DAY(transaction_date)
+) AS sales_data
+ORDER BY day_of_month
+;
+        
+	
+-- 8. Sales Analysis by Product Category
+
+SELECT product_category,
+	  ROUND(SUM(unit_price * transaction_qty), 1) AS total_sales
+FROM coffee_sales_copy
+WHERE MONTH(transaction_date) = 1 -- for the month January
+GROUP BY product_category, MONTH(transaction_date)
+ORDER BY total_sales DESC
+;
+
+
+-- 9. Top 10 products by sales
+
+SELECT  product_type,
+		ROUND(SUM(unit_price * transaction_qty),1) AS Total_Sales
+FROM coffee_sales_copy
+		WHERE MONTH(transaction_date) = 1 -- For the month January 
+        GROUP BY product_type
+        ORDER BY SUM(unit_price * transaction_qty) DESC
+        LIMIT 10
+;
+
+
+-- 10. Sales Analysis by Days and Hours
+
+-- Total sales, Total quantity sold and Total orders for a particular month,day and time
+SELECT 
+	ROUND(SUM(unit_price * transaction_qty), 1) AS Total_sales,
+     SUM(transaction_qty) AS Total_qty_sold,
+     COUNT(*) AS Total_orders
+FROM coffee_sales_copy
+WHERE MONTH(transaction_date) = 1 -- for the month January
+AND DAYOFWEEK(transaction_date) = 2 -- for Monday
+AND HOUR(transaction_time) = 14 -- for hours
+;
+
+
+-- Total Sales from Monday to Sunday in a particular month
+SELECT 
+	  CASE
+      WHEN DAYOFWEEK(transaction_date) = 2 THEN 'Monday'
+       WHEN DAYOFWEEK(transaction_date) = 3 THEN 'Tuesday'
+        WHEN DAYOFWEEK(transaction_date) = 4 THEN 'Wednesday'
+         WHEN DAYOFWEEK(transaction_date) = 5 THEN 'Thursday'
+          WHEN DAYOFWEEK(transaction_date) = 6 THEN 'Friday'
+           WHEN DAYOFWEEK(transaction_date) = 7 THEN 'Saturday'
+ELSE 'Sunday'
+END AS Day_of_week,
+ROUND(SUM(unit_price * transaction_qty)) AS Total_sales
+FROM coffee_sales_copy
+WHERE MONTH(transaction_date) = 1 -- For the month January
+GROUP BY 
+	CASE 
+     WHEN DAYOFWEEK(transaction_date) = 2 THEN 'Monday' 
+       WHEN DAYOFWEEK(transaction_date) = 3 THEN 'Tuesday'
+        WHEN DAYOFWEEK(transaction_date) = 4 THEN 'Wednesday'
+         WHEN DAYOFWEEK(transaction_date) = 5 THEN 'Thursday'
+          WHEN DAYOFWEEK(transaction_date) = 6 THEN 'Friday'
+           WHEN DAYOFWEEK(transaction_date) = 7 THEN 'Saturday'
+ELSE 'Sunday' 
+END;
+    
+
+-- Total Sales for a particular time in a particular month
+SELECT 
+	  HOUR(transaction_time)  AS Hour_of_day,
+	  ROUND(SUM(unit_price * transaction_qty)) AS Total_sales
+FROM coffee_sales_copy
+WHERE MONTH(transaction_date) = 1 -- for the month January
+GROUP BY HOUR(transaction_time)
+ORDER BY HOUR(transaction_time)
+;
