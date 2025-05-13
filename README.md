@@ -26,10 +26,10 @@ Tools & Technologies
 
 Key Insights
 
-- Top-performing products** by revenue and volume sold
-- Peak hours and days** for each store location
-- Revenue contribution** by category (coffee, pastries, cold drinks, etc.)
-- Branch-level comparison** to identify high/low performing outlets
+- Top-performing products by revenue and volume sold
+- Peak hours and days for each store location
+- Revenue contribution by category (coffee, pastries, cold drinks, etc.)
+- Branch-level comparison to identify high/low performing outlets
 - Sales trends over time to support demand forecasting
 
 ---
