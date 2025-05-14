@@ -35,7 +35,8 @@ Key Insights
 
 Sample Dashboard Preview
 
-> *(Insert a screenshot or link to your Power BI dashboard here)*
+> ![coffee dashboard sc](https://github.com/user-attachments/assets/e358d1d0-708f-47a1-b8bf-3decace695fe)
+
 
 ---
 
