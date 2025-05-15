@@ -34,7 +34,8 @@ Key Insights
 
 Sample Dashboard Preview
 
->![image](https://github.com/user-attachments/assets/81459cdb-83c9-494c-a9c1-df340fd5c771)
+>![coffee dashboard sc](https://github.com/user-attachments/assets/9a56d651-9420-4c6c-8c1a-68467a714ae0)
+
 
 
 
