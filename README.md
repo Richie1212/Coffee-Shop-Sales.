@@ -52,7 +52,7 @@ Sample Dashboard Preview
 
 - [LinkedIn](https://www.linkedin.com/in/richardyeboah1)
 - [Portfolio](https://yourwebsite.com)
-- 📧 richardsyeb23@gmail.com
+- richardsyeb23@gmail.com
 
 ---
 
