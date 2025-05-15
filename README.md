@@ -51,7 +51,7 @@ Sample Dashboard Preview
  Let's Connect
 
 - [LinkedIn](https://www.linkedin.com/in/richardyeboah1)
-- [Portfolio](https://yourwebsite.com)
+- 
 - richardsyeb23@gmail.com
 
 ---
