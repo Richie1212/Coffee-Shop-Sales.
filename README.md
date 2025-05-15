@@ -42,15 +42,6 @@ Sample Dashboard Preview
 
 ---
 
-  Files Included
-
-- `SQL_queries.sql`: All MySQL queries used for data transformation and analysis  
-- `Coffee_Shop_Insights.pbix`: Power BI dashboard file  
-- `data/`: Cleaned and raw datasets  
-- `README.md`: Project documentation  
-
----
-
  Live Demo / Report Link
 
 > *(Optional: Add a link to your published Power BI report or GitHub Pages site if available)*
