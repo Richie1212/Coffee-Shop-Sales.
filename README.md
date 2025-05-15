@@ -50,8 +50,7 @@ Sample Dashboard Preview
 
  Let's Connect
 
-- [LinkedIn](https://www.linkedin.com/in/richardyeboah1)
-- 
+- [LinkedIn](https://www.linkedin.com/in/richardyeboah1) 
 - richardsyeb23@gmail.com
 
 ---
