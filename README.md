@@ -44,7 +44,7 @@ Sample Dashboard Preview
 
  Live Demo / Report Link
 
-> *(Optional: Add a link to your published Power BI report or GitHub Pages site if available)*
+> https://1drv.ms/u/c/19dd0147a8c2f904/EUDelY8vb4ZIiFwNPR69-OkBkI2sg1pe6S0gcN6ATOeCAQ?e=0GVTNl
 
 ---
 
