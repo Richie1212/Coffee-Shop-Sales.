@@ -2,7 +2,7 @@ Coffee Shop Data Analysis
 
  Project Summary
 
-This project analyzes transactional and operational data from a fictional coffee shop chain to uncover key business insights and performance trends. Using MySQL for data extraction and transformation, and Power BI for interactive visual storytelling, the analysis provides decision-makers with a 360° view of sales, orders, quantity sold, product performance, and location profitability.
+This project analyzes transactional and operational data from a fictional coffee shop chain to uncover key business insights and performance trends. Using MySQL for data extraction and transformation, and Power BI for interactive visual storytelling, the analysis provides decision-makers with a 360° view of sales, orders, quantity sold, product performance, sale trend by time and location profitability.
 
 ---
 
@@ -27,7 +27,6 @@ Key Insights
 
 - Top-performing products by revenue and volume sold
 - Peak hours and days for each store location
-- Revenue contribution by category (coffee, pastries, cold drinks, etc.)
 - Branch-level comparison to identify high/low performing outlets
 - Sales trends over time to support demand forecasting
 
@@ -35,7 +34,9 @@ Key Insights
 
 Sample Dashboard Preview
 
-> ![coffee dashboard sc](https://github.com/user-attachments/assets/e358d1d0-708f-47a1-b8bf-3decace695fe)
+>![image](https://github.com/user-attachments/assets/81459cdb-83c9-494c-a9c1-df340fd5c771)
+
+
 
 
 ---
