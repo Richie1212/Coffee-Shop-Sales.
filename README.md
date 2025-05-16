@@ -55,6 +55,8 @@ Sample Dashboard Preview
 
 ---
 
-> “Behind every great coffee is a data story waiting to be discovered.”  
+> “Behind every great coffee is a data story waiting to be discovered.”
+
+
 
 
