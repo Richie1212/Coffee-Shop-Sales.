@@ -44,7 +44,8 @@ Sample Dashboard Preview
 
  Live Demo / Report Link
 
-> https://1drv.ms/u/c/19dd0147a8c2f904/EUDelY8vb4ZIiFwNPR69-OkBkI2sg1pe6S0gcN6ATOeCAQ?e=0GVTNl
+> <iframe title="Coffee Shop Sales Dashboard" width="600" height="373.5" src="https://app.powerbi.com/view?r=eyJrIjoiOGNiMWQxNWQtYWZhYi00YTQ3LTliMGEtODUwMjRlOWQ0YTRhIiwidCI6IjZhNWYyYTQxLTQyNmItNGVlNy05NTRmLWFlMWE0M2U0YmU3ZSJ9&pageName=b1c8c0bdcca843c7c576" frameborder="0" allowFullScreen="true"></iframe>
+
 
 ---
 
