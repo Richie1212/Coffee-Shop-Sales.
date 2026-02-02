@@ -1,12 +1,12 @@
-Coffee Shop Data Analysis
+# Coffee Shop Data Analysis
 
- Project Summary
+ **Project Summary**
 
 This project analyzes transactional and operational data from a fictional coffee shop chain to uncover key business insights and performance trends. Using MySQL for data extraction and transformation, and Power BI for interactive visual storytelling, the analysis provides decision-makers with a 360° view of sales, orders, quantity sold, product performance, sale trend by time and location profitability.
 
 ---
 
-Tools & Technologies
+**Tools & Technologies**
 
 - SQL (MySQL): Data cleaning, transformation, and analytical querying
 - Power BI: Dashboard design, DAX calculations, data visualization
@@ -14,7 +14,7 @@ Tools & Technologies
 
 ---
 
- Project Objectives
+ **Project Objectives**
 
 - Analyze sales performance by product, category, and location  
 - Identify high-performing branches and peak business hours  
@@ -23,7 +23,7 @@ Tools & Technologies
 
 ---
 
-Key Insights
+**Key Insights**
 
 - Top-performing products by revenue and volume sold
 - Peak hours and days for each store location
@@ -32,7 +32,7 @@ Key Insights
 
 ---
 
-Sample Dashboard Preview
+**Sample Dashboard Preview**
 
 >![coffee dashboard sc](https://github.com/user-attachments/assets/9a56d651-9420-4c6c-8c1a-68467a714ae0)
 
@@ -49,14 +49,14 @@ Sample Dashboard Preview
 
 ---
 
- Let's Connect
+ **Let's Connect**
 
-- [LinkedIn](https://www.linkedin.com/in/richardyeboah1) 
-- richardsyeb23@gmail.com
+- **`[LinkedIn](https://www.linkedin.com/in/richardyeboah1)`**
+- **`richardsyeb23@gmail.com`**
 
 ---
 
-> “Behind every great coffee is a data story waiting to be discovered.”
+> **`Behind every great coffee is a data story waiting to be discovered`**
 
 
 
